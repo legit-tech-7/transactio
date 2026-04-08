@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receipt</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- IMAGE DOWNLOAD -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    background:#f5f6f8;
+    font-family:'Inter', sans-serif;
+}
+
+.wrapper{
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.receipt{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    border-radius:12px;
+    padding:24px;
+}
+
+/* HEADER */
+.header{
+    text-align:center;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:600;
+    color:#4a4a4a;
+}
+
+.sub{
+    font-size:13px;
+    color:#9aa0a6;
+    margin-top:4px;
+}
+
+/* SUCCESS */
+.success{
+    text-align:center;
+    margin:22px 0;
+}
+
+.success-icon{
+    color:#22c55e;
+    font-size:20px;
+}
+
+.success-title{
+    font-weight:600;
+    font-size:17px;
+    color:#2e2e2e;
+    margin-top:5px;
+}
+
+.success-sub{
+    font-size:13px;
+    color:#9aa0a6;
+}
+
+/* DIVIDER */
+hr{
+    border:none;
+    border-top:1px solid #eee;
+    margin:22px 0;
+}
+
+/* SECTION TITLE */
+.section-title{
+    font-weight:600;
+    font-size:15px;
+    color:#2e2e2e;
+    margin-bottom:12px;
+}
+
+/* GRID */
+.grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+}
+
+.item{
+    width:48%;
+    margin-bottom:14px;
+}
+
+.label{
+    font-size:13px;
+    color:#9aa0a6;
+}
+
+.value{
+    font-size:14px;
+    font-weight:500;
+    color:#2e2e2e;
+    margin-top:3px;
+}
+
+/* STATUS */
+.green{
+    color:#22c55e;
+    font-weight:500;
+}
+
+/* TRANSFER INFO */
+.block{
+    margin-bottom:18px;
+}
+
+.block-title{
+    font-size:13px;
+    color:#9aa0a6;
+}
+
+.block-value{
+    font-size:14px;
+    font-weight:500;
+    margin-top:6px;
+}
+
+/* AMOUNT */
+.amount-box{
+    border-left:4px solid #3b82f6;
+    padding-left:12px;
+    margin-top:8px;
+}
+
+.amount-label{
+    font-size:13px;
+    color:#9aa0a6;
+}
+
+.amount{
+    font-size:32px;
+    font-weight:600;
+    color:#2e2e2e;
+    margin-top:5px;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:30px;
+    font-size:12px;
+    color:#9aa0a6;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:12px;
+    background:#3b82f6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    margin-top:15px;
+    font-weight:500;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+<div>
+
+<div class="receipt" id="receipt">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">💲 Unity Trust Bank</div>
+        <div class="sub">Transfer Receipt</div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success">
+        <div class="success-icon">✔</div>
+        <div class="success-title">Transfer Successful</div>
+        <div class="success-sub">Transaction Completed</div>
+    </div>
+
+    <hr>
+
+    <!-- TRANSACTION DETAILS -->
+    <div class="section-title">Transaction Details</div>
+
+    <div class="grid">
+        <div class="item">
+            <div class="label">Transaction ID:</div>
+            <div class="value">{{ transaction_id }}</div>
+        </div>
+
+        <div class="item">
+            <div class="label">Date & Time:</div>
+            <div class="value">{{ date_time }}</div>
+        </div>
+
+        <div class="item">
+            <div class="label">Status:</div>
+            <div class="value green">Completed</div>
+        </div>
+
+        <div class="item">
+            <div class="label">Transaction Type:</div>
+            <div class="value">Money Transfer</div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- TRANSFER INFO -->
+    <div class="section-title">Transfer Information</div>
+
+    <div class="block">
+        <div class="block-title">Sender Details</div>
+        <div class="block-value">{{ sender }}</div>
+    </div>
+
+    <div class="block">
+        <div class="block-title">Receiver Details</div>
+        <div class="block-value">{{ receiver }}</div>
+        <div class="block-value" style="color:#9aa0a6;">{{ account }}</div>
+    </div>
+
+    <div class="block">
+        <div class="amount-label">Amount Transferred</div>
+        <div class="amount-box">
+            <div class="amount">${{ amount }}</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Thank you for banking with Unity Trust Bank<br>
+        For inquiries, contact us at support@unitytrustbank.com
+    </div>
+
+</div>
+
+<button class="btn" onclick="downloadImage()">Download Receipt</button>
+
+</div>
+</div>
+
+<script>
+function downloadImage(){
+    html2canvas(document.getElementById("receipt"), {scale:2}).then(canvas=>{
+        let link=document.createElement("a");
+        link.download="receipt.png";
+        link.href=canvas.toDataURL("image/png");
+        link.click();
+    });
+}
+</script>
+
+</body>
+</html>

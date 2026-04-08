@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family: Arial; background:#f5f6f8; padding:20px;">
+
+<div style="max-width:400px; margin:auto; background:white; padding:20px; border-radius:10px;">
+
+<h2 style="text-align:center;">Bank Transfer</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="sender" placeholder="Sender Name" required style="width:100%; padding:12px; margin:10px 0;"><br>
+    <input type="text" name="receiver" placeholder="Receiver Name" required style="width:100%; padding:12px; margin:10px 0;"><br>
+    <input type="text" name="account" placeholder="Account Number" required style="width:100%; padding:12px; margin:10px 0;"><br>
+    <input type="number" name="amount" placeholder="Amount" required style="width:100%; padding:12px; margin:10px 0;"><br>
+
+    <button style="width:100%; padding:12px; background:#2b7cff; color:white; border:none;">
+        Generate Receipt
+    </button>
+</form>
+
+</div>
+
+</body>
+</html>
